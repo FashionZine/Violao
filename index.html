@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Violão" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Violão Studio</title>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="aurora aurora-a"></div>
+  <div class="aurora aurora-b"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PWA Offline</p>
+        <h1>Violão Studio</h1>
+      </div>
+      <button class="icon-button" id="installHint" aria-label="Instalar app">⌁</button>
+    </header>
+
+    <section class="hero-card tab-panel active" id="tunerPanel">
+      <div class="panel-title">
+        <span>Afinador</span>
+        <small>microfone + referência</small>
+      </div>
+
+      <div class="tuner-stage">
+        <div class="ghost-note" id="ghostNote">E</div>
+        <div class="target-lines"></div>
+        <div class="needle" id="needle"></div>
+        <div class="frequency" id="freqText">-- Hz</div>
+      </div>
+
+      <div class="string-grid" id="stringGrid"></div>
+
+      <div class="action-row">
+        <button class="primary" id="micBtn">Ativar microfone</button>
+        <button class="secondary" id="refBtn">Tocar referência</button>
+      </div>
+      <p class="status" id="tunerStatus">Escolha uma corda e ative o microfone para detectar a afinação.</p>
+    </section>
+
+    <section class="hero-card tab-panel" id="metroPanel">
+      <div class="panel-title">
+        <span>Metrônomo</span>
+        <small>pulso elegante</small>
+      </div>
+      <div class="metro-orb" id="metroOrb"><span id="beatMark">1</span></div>
+      <div class="bpm-readout"><span id="bpmValue">90</span><small>BPM</small></div>
+      <input type="range" min="40" max="220" value="90" id="bpmSlider" />
+      <div class="action-row spacious">
+        <button class="secondary" id="minusBtn">−5</button>
+        <button class="primary" id="metroBtn">Iniciar</button>
+        <button class="secondary" id="plusBtn">+5</button>
+      </div>
+    </section>
+
+    <section class="hero-card tab-panel" id="libraryPanel">
+      <div class="panel-title">
+        <span>Biblioteca</span>
+        <small>partitura limpa</small>
+      </div>
+      <div class="library-list" id="libraryList"></div>
+      <div class="score-card">
+        <div class="score-title" id="scoreTitle">C maior</div>
+        <svg id="scoreSvg" viewBox="0 0 420 150" role="img" aria-label="Partitura"></svg>
+      </div>
+    </section>
+  </main>
+
+  <nav class="dock">
+    <button class="dock-item active" data-tab="tunerPanel">Afinador</button>
+    <button class="dock-item" data-tab="metroPanel">Metrônomo</button>
+    <button class="dock-item" data-tab="libraryPanel">Biblioteca</button>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
+    }
+  </script>
+</body>
+</html>
